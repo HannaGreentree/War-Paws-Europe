@@ -1,6 +1,4 @@
 <!DOCTYPE html>
-{% load static %}
-
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -19,16 +17,8 @@
     <header class="site-header">
       <div class="header-inner">
         <!-- Logo (left) -->
-        <a
-          class="brand"
-          href="index.html"
-          aria-label="War Paws International home"
-        >
-          <img
-            src="images/logo.png"
-            alt="War Paws International logo"
-            class="brand-mark"
-          />
+        <a class="brand" href="index.html" aria-label="War Paws International home">
+          <img src="images/logo.png" alt="War Paws International logo" class="brand-mark" />
           <span class="brand-name">War Paws International</span>
         </a>
 
@@ -36,9 +26,7 @@
         <nav class="main-nav" aria-label="Main navigation">
           <ul class="nav-list">
             <li><a class="nav-link" href="index.html">Home</a></li>
-            <li>
-              <a class="nav-link active" href="documents.html">Documents</a>
-            </li>
+            <li><a class="nav-link active" href="documents.html">Documents</a></li>
             <li><a class="nav-link" href="shelters.html">Shelters</a></li>
             <li><a class="nav-link" href="blog.html">Blog</a></li>
             <li><a class="nav-link" href="contact.html">Contact</a></li>
@@ -47,12 +35,7 @@
 
         <!-- Search (simple) -->
         <div class="header-actions">
-          <form
-            class="site-search"
-            aria-label="Site search"
-            method="get"
-            action="documents.html"
-          >
+          <form class="site-search" aria-label="Site search" method="get" action="documents.html">
             <label class="sr-only" for="q">Search</label>
             <input id="q" name="q" type="search" placeholder="Search" />
           </form>
@@ -102,9 +85,7 @@
               <h3>3) Mandatory medical preparation</h3>
               <ul>
                 <li><strong>Microchip:</strong> must be done first.</li>
-                <li>
-                  <strong>Rabies vaccination:</strong> recorded in documents.
-                </li>
+                <li><strong>Rabies vaccination:</strong> recorded in documents.</li>
                 <li>
                   <strong>Rabies titer test:</strong> blood sample taken at
                   least 30 days after vaccination and sent to an approved lab.
@@ -174,10 +155,7 @@
             <li>
               <strong>Option 2:</strong> The volunteer pays first, then sends
               you receipts, and you transfer the money back.
-              <em
-                >However, many volunteers cannot take this risk, so do not
-                expect it.</em
-              >
+              <em>However, many volunteers cannot take this risk, so do not expect it.</em>
             </li>
           </ul>
         </div>
@@ -228,23 +206,12 @@
           <ul class="cost-list">
             <li><strong>Microchip:</strong> 500–700 UAH</li>
             <li><strong>Rabies vaccination:</strong> 150–300 UAH</li>
-            <li>
-              <strong>Rabies titer test:</strong> 2,500 UAH (standard) / 5,000
-              UAH (urgent)
-            </li>
+            <li><strong>Rabies titer test:</strong> 2,500 UAH (standard) / 5,000 UAH (urgent)</li>
             <li><strong>EU / international passport:</strong> 50–400 UAH</li>
             <li><strong>Courier to lab (if needed):</strong> 100–250 UAH</li>
-            <li>
-              <strong>Transport to border / inside Ukraine:</strong> variable
-            </li>
-            <li>
-              <strong>Transport to your country:</strong> variable (example:
-              £300–£1,500 EU → UK road transport)
-            </li>
-            <li>
-              <strong>Travel crate / carrier:</strong> paid by adopter (unless
-              volunteer provides one)
-            </li>
+            <li><strong>Transport to border / inside Ukraine:</strong> variable</li>
+            <li><strong>Transport to your country:</strong> variable (example: £300–£1,500 EU → UK road transport)</li>
+            <li><strong>Travel crate / carrier:</strong> paid by adopter (unless volunteer provides one)</li>
           </ul>
         </div>
       </section>
@@ -279,20 +246,14 @@
     <footer class="site-footer">
       <div class="footer-top">
         <a class="brand footer-brand" href="index.html">
-          <img
-            src="images/logo.png"
-            alt="War Paws International logo"
-            class="brand-mark"
-          />
+          <img src="images/logo.png" alt="War Paws International logo" class="brand-mark" />
           <span class="brand-name">War Paws International</span>
         </a>
 
         <nav class="footer-nav" aria-label="Footer navigation">
           <ul class="nav-list">
             <li><a class="nav-link" href="index.html">Home</a></li>
-            <li>
-              <a class="nav-link active" href="documents.html">Documents</a>
-            </li>
+            <li><a class="nav-link active" href="documents.html">Documents</a></li>
             <li><a class="nav-link" href="shelters.html">Shelters</a></li>
             <li><a class="nav-link" href="blog.html">Blog</a></li>
             <li><a class="nav-link" href="contact.html">Contact</a></li>
@@ -306,13 +267,11 @@
           guarantee reliability 100%. Please verify shelters and volunteers
           independently.
         </p>
-        <p class="copy">
-          &copy; <span id="year"></span> War Paws International
-        </p>
+        <p class="copy">&copy; <span id="year"></span> War Paws International</p>
       </div>
     </footer>
 
-    <script src="{% static 'js/main.js' %}" defer></script>
-    <script src="{% static 'js/documents.js' %}" defer></script>
+    <script src="js/main.js" defer></script>
+    <script src="js/documents.js" defer></script>
   </body>
 </html>
