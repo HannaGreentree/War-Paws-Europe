@@ -23,20 +23,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* HERO WIPE ANIMATION (once per page load) */
   
+   // ---- HERO VIDEO MASK REVEAL (LUMINANCE MASK for MP4) ----
   const heroGrid = document.getElementById("heroGrid");
-  if (!heroGrid) return;
-
   const maskVideo = document.getElementById("dripMaskVideo");
+  if (!heroGrid || !maskVideo) return;
+
   const overlayTiles = heroGrid.querySelectorAll(".hero-overlay-tile");
+  if (overlayTiles.length !== 4) return;
 
-  if (!maskVideo || overlayTiles.length !== 4) {
-    console.error("Missing #dripMaskVideo or .hero-overlay-tile elements (need 4).");
-    return;
-  }
+  const WAIT_BEFORE_START = 700;
 
-  const WAIT_BEFORE_START = 2000; // 2 seconds
-
-  // Draw source to canvas like object-fit: cover
   function drawCover(ctx, source, cw, ch) {
     const sw = source.videoWidth || source.naturalWidth;
     const sh = source.videoHeight || source.naturalHeight;
@@ -47,38 +43,118 @@ document.addEventListener("DOMContentLoaded", () => {
     const dh = sh * scale;
     const dx = (cw - dw) / 2;
     const dy = (ch - dh) / 2;
+
     ctx.drawImage(source, dx, dy, dw, dh);
   }
 
-  async function animateTile(tile) {
+  const items = Array.from(overlayTiles).map((tile) => {
     const img = tile.querySelector(".overlay-img");
     const canvas = tile.querySelector(".overlay-canvas");
-    if (!img || !canvas) return;
+    const ctx = canvas ? canvas.getContext("2d", { willReadFrequently: true }) : null;
+    return { tile, img, canvas, ctx };
+  });
 
-    // Start hidden (only canvas reveal is visible)
-    img.style.opacity = "0";
+  // Offscreen canvas used to convert mask video brightness -> alpha
+  const maskCanvas = document.createElement("canvas");
+  const maskCtx = maskCanvas.getContext("2d", { willReadFrequently: true });
 
-    // Ensure image is loaded
-    if (!img.complete) {
-      await new Promise((res) => img.addEventListener("load", res, { once: true }));
+  async function ensureImagesLoaded() {
+    await Promise.all(
+      items.map(({ img }) => {
+        if (!img) return Promise.resolve();
+        if (img.complete) return Promise.resolve();
+        return new Promise((res) => img.addEventListener("load", res, { once: true }));
+      })
+    );
+  }
+
+  function sizeCanvases() {
+    items.forEach(({ tile, canvas, ctx }) => {
+      if (!canvas || !ctx) return;
+      const rect = tile.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+
+      canvas.width = Math.max(1, Math.floor(rect.width * dpr));
+      canvas.height = Math.max(1, Math.floor(rect.height * dpr));
+      canvas.style.display = "block";
+    });
+
+    // Match offscreen mask canvas to the first tile size
+    const first = items[0];
+    if (first && first.canvas) {
+      maskCanvas.width = first.canvas.width;
+      maskCanvas.height = first.canvas.height;
+    }
+  }
+
+  function makeLuminanceMask() {
+    // 1) Draw current video frame onto offscreen canvas
+    maskCtx.clearRect(0, 0, maskCanvas.width, maskCanvas.height);
+    drawCover(maskCtx, maskVideo, maskCanvas.width, maskCanvas.height);
+
+    // 2) Convert brightness to alpha
+    const frame = maskCtx.getImageData(0, 0, maskCanvas.width, maskCanvas.height);
+    const data = frame.data;
+
+    for (let i = 0; i < data.length; i += 4) {
+      const r = data[i];
+      const g = data[i + 1];
+      const b = data[i + 2];
+
+      // brightness 0..255 (black -> 0, white -> 255)
+      const lum = (r + g + b) / 3;
+
+      // Make mask white, and use lum as alpha
+      data[i] = 255;
+      data[i + 1] = 255;
+      data[i + 2] = 255;
+      data[i + 3] = 255 - lum;
     }
 
-    // Canvas size (HiDPI)
-    const rect = tile.getBoundingClientRect();
-    const dpr = window.devicePixelRatio || 1;
-    canvas.width = Math.max(1, Math.floor(rect.width * dpr));
-    canvas.height = Math.max(1, Math.floor(rect.height * dpr));
-    canvas.style.display = "block";
+    maskCtx.putImageData(frame, 0, 0);
+  }
 
-    const ctx = canvas.getContext("2d");
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  function renderFrame() {
+    if (maskVideo.paused || maskVideo.ended) return;
 
-    // Reset video for this tile
+    makeLuminanceMask();
+
+    items.forEach(({ img, canvas, ctx }) => {
+      if (!img || !canvas || !ctx) return;
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // 1) Draw overlay image
+      ctx.globalCompositeOperation = "source-over";
+      drawCover(ctx, img, canvas.width, canvas.height);
+
+      // 2) Apply luminance-based mask
+      ctx.globalCompositeOperation = "destination-in";
+      ctx.drawImage(maskCanvas, 0, 0, canvas.width, canvas.height);
+    });
+
+    requestAnimationFrame(renderFrame);
+  }
+
+  function finishReveal() {
+    items.forEach(({ img, canvas, ctx }) => {
+      if (canvas && ctx) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        canvas.style.display = "none";
+      }
+      if (img) img.style.opacity = "1";
+    });
+  }
+
+  async function startReveal() {
+    await ensureImagesLoaded();
+    sizeCanvases();
+
+    items.forEach(({ img }) => img && (img.style.opacity = "0"));
+
     maskVideo.pause();
     maskVideo.currentTime = 0;
 
-    // Wait for video to have data
     await new Promise((res) => {
       if (maskVideo.readyState >= 2) return res();
       maskVideo.addEventListener("loadeddata", res, { once: true });
@@ -87,47 +163,32 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       await maskVideo.play();
     } catch (e) {
-      console.error(
-        "Mask video could not play. Check muted/playsinline and file path.",
-        e
+      // Autoplay blocked: click to start
+      document.addEventListener(
+        "click",
+        async () => {
+          try {
+            await maskVideo.play();
+            requestAnimationFrame(renderFrame);
+          } catch (err) {
+            finishReveal();
+          }
+        },
+        { once: true }
       );
-      canvas.style.display = "none";
       return;
     }
 
-    // Render loop: image masked by video alpha
-    const render = () => {
-      if (maskVideo.paused || maskVideo.ended) return;
-
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      // 1) draw overlay image
-      ctx.globalCompositeOperation = "source-over";
-      drawCover(ctx, img, canvas.width, canvas.height);
-
-      // 2) apply mask video alpha
-      ctx.globalCompositeOperation = "destination-in";
-      drawCover(ctx, maskVideo, canvas.width, canvas.height);
-
-      requestAnimationFrame(render);
-    };
-
-    render();
-
-    // Wait until video ends
-    await new Promise((res) => maskVideo.addEventListener("ended", res, { once: true }));
-
-    // Finish: show normal overlay image, hide canvas
-    canvas.style.display = "none";
-    img.style.opacity = "1";
+    requestAnimationFrame(renderFrame);
+    maskVideo.addEventListener("ended", finishReveal, { once: true });
   }
 
-  // Run once per page load after 2s
-  setTimeout(async () => {
-    for (const tile of overlayTiles) {
-      await animateTile(tile);
-    }
-  }, WAIT_BEFORE_START);
+  setTimeout(startReveal, WAIT_BEFORE_START);
+
+  window.addEventListener("resize", () => {
+    if (!maskVideo.ended) sizeCanvases();
+  
 });
+
 
 
