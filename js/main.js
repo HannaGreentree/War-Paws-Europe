@@ -32,7 +32,11 @@ document.addEventListener("DOMContentLoaded", () => {
   
   // ---- HERO VIDEO MASK REVEAL ----
    // ---- HERO VIDEO MASK REVEAL (ALL AT ONCE, LUMINANCE MASK for MP4) ----
+
 const heroGrid = document.getElementById("heroGrid");
+const heroOverlay = heroGrid.querySelector(".hero-overlay");
+if (heroOverlay) heroOverlay.style.opacity = "0";
+  
 const maskVideo = document.getElementById("dripMaskVideo");
 if (!heroGrid || !maskVideo) return;
 
@@ -161,6 +165,7 @@ function finishReveal() {
 async function startReveal() {
   await ensureImagesLoaded();
   sizeCanvases();
+  if (heroOverlay) heroOverlay.style.opacity = "1";
 
   // Keep overlay images hidden until reveal ends
   items.forEach(({ img }) => img && (img.style.opacity = "0"));
@@ -203,4 +208,5 @@ window.addEventListener("resize", () => {
 });
 
 });
+
 
