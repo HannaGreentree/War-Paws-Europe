@@ -1,6 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("✅ main.js loaded");
-
   // Footer year
   const yearEl = document.getElementById("year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
@@ -8,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // War day counter (UTC-safe)
   const warDayEl = document.getElementById("warDayNumber");
   if (warDayEl) {
-    const warStartUTC = Date.UTC(2022, 1, 24);
+    const warStartUTC = Date.UTC(2022, 1, 24); // Feb 24 2022
     const now = new Date();
     const todayUTC = Date.UTC(
       now.getUTCFullYear(),
@@ -28,12 +26,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-
-  
-  // ---- HERO VIDEO MASK REVEAL ----
-   // ---- HERO VIDEO MASK REVEAL (ALL AT ONCE, LUMINANCE MASK for MP4) ----
-
-const overlayTiles = document.querySelectorAll(".hero-overlay-tile");
+  // HERO overlay slides down after 2 seconds (5 seconds duration in CSS)
+   // HERO: chaotic stagger reveal (2s wait, then tiles slide with 0.5s gap)
+  const overlayTiles = document.querySelectorAll(".hero-overlay-tile");
   if (overlayTiles.length) {
     const WAIT_BEFORE_START = 1000; // 2 seconds
     const STAGGER = 500; // 0.5 seconds between tiles
@@ -53,6 +48,7 @@ const overlayTiles = document.querySelectorAll(".hero-overlay-tile");
   }
 
 });
+
 
 
 
