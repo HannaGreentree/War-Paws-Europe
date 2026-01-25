@@ -25,6 +25,7 @@ html {
 html,
 body {
   height: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -649,6 +650,15 @@ ul {
     grid-template-columns: repeat(2, 1fr);
   }
 
+
+  @media (max-width: 768px) {
+  .hero,
+  .hero-grid {
+    overflow: hidden;
+  }
+}
+
+   
   .hero-overlay {
     grid-template-columns: repeat(2, 1fr);
   }
