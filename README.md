@@ -177,10 +177,10 @@ W3C CSS Validator: https://jigsaw.w3.org/css-validator/
 - Browser DevTools Console (manual checks)
 
 ### Django / Python Testing
-"Recommended evidence:
+'Recommended evidence:
 ```bash
 python manage.py check
-python manage.py test"
+python manage.py test
 
 ### Manual Test Plan (document results) 
 Create a TESTING.md (recommended) and include:
