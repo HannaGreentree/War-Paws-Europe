@@ -18,6 +18,15 @@ The site owner advances their goal of improving adoption clarity and reducing ri
 
 ---
 
+## Objectives:
+- Provide clear adoption and transport guidance (steps, documents, costs)
+- Share structured lists of shelters, rescues, and volunteer contacts
+- Reduce fraud risk by encouraging verification and transparency
+- Publish updates via a Blog section
+- Allow supporters, adopters, and shelters/volunteers to contact the project team
+
+---
+
 ## Project Purpose and Rationale 
 
 The purpose of WPE is immediately evident to new users: it provides **adoption guidance, resource lists, and safety reminders** to reduce confusion, improve safety, and help animals in crisis. The platform addresses multiple related audiences (adopters, Ukrainians fleeing with pets, shelters/rescues, animal protection organisations) by offering clear navigation and actionable information. This project is a reminder that war has not ended and animals require urgent help. 
@@ -33,7 +42,105 @@ The purpose of WPE is immediately evident to new users: it provides **adoption g
 
 ---
 
-## Main Technologies (Required)
+## Development Timeline / Actions Taken
+
+- **Initial Planning** — page goals and content planning (Home, Documents, Shelters, Blog, Contact)
+- **Setup** — Django project structure, templates, static files, routing, and deployment configuration
+- **Design** — consistent layout, header/footer system, responsive sections, card-style content areas
+- **Functionality**
+  - JavaScript: menu toggle, year update, war-day counter, hero overlay reveal, scroll-triggered image swaps
+  - Django: blog create/edit/delete flow for authorised users
+  - Contact forms UI (and backend handling if implemented)
+- **Content Integration** — real guidance text and shelter/resource lists
+- **Testing & Validation** — HTML/CSS validation, JavaScript checks, Django manual testing of blog/admin features
+- **Deployment** — Render deployment and verification
+
+---
+
+### Design Note (Wireframes)
+I understand that creating wireframes and saving design references is an important part of the planning process because it helps document decisions and supports better development workflow. Unfortunately, I lost my original wireframes/design files for this project. To document the design properly, I will include clear screenshots of the final implemented pages (desktop + mobile) as evidence of layout, structure, and responsiveness.
+
+
+## Screenshots (Replace Wireframes)
+
+
+### Home Page (Desktop)
+
+![Home Hero](images/screenshots/wireframes-home-hero.png)
+![Home Section 2](images/screenshots/wireframes-home-2.png)
+![Home Section 3](images/screenshots/wireframes-home-3.png)
+![Home Section 4](images/screenshots/wireframes-home-4.png)
+![Home Section 5](images/screenshots/wireframes-home-5.png)
+![Home Section 6](images/screenshots/wireframes-home-6.png)
+
+---
+
+### Shelters Page (Desktop)
+
+![Shelters Desktop](images/screenshots/shelters-desktop.png)
+![Shelters Hero](images/screenshots/wireframes-shelters-hero.png)
+![Shelters Section 2](images/screenshots/wireframes-shelters-2.png)
+
+---
+
+### Documents Page (Desktop)
+
+![Documents Hero](images/screenshots/wireframes-documents-home.png)
+![Documents Section 2](images/screenshots/wireframes-documents-2.png)
+![Documents Section 3](images/screenshots/wireframes-documents-3.png)
+![Documents Section 4](images/screenshots/wireframes-documents-4.png)
+
+---
+
+### Blog Page (Desktop)
+
+![Blog Hero](images/screenshots/wireframes-blog-hero.png)
+![Blog Section 2](images/screenshots/wireframes-blog-2.png)
+
+---
+
+### Contact Page (Desktop)
+
+![Contact Hero](images/screenshots/wireframes-contact-hero.png)
+![Contact Section 2](images/screenshots/wireframes-contact-2.png)
+
+### Home Page (Mobile)
+
+![Mobile Home Hero](images/screenshots/mobile-wireframes-home-hero.png)
+![Mobile Home Section 2](images/screenshots/mobile-wireframes-home-2.png)
+![Mobile Home Section 3](images/screenshots/mobile-wireframes-home-3.png)
+![Mobile Home Section 4](images/screenshots/mobile-wireframes-home-4.png)
+
+---
+
+### Documents Page (Mobile)
+
+![Mobile Documents Hero](images/screenshots/mobile-wireframes-documents-hero.png)
+![Mobile Documents Section 2](images/screenshots/mobile-wireframes-documents-2.png)
+
+---
+
+### Shelters Page (Mobile)
+
+![Mobile Shelters Hero](images/screenshots/mobile-wireframes-shelters-hero.png)
+![Mobile Shelters Section 2](images/screenshots/mobile-wireframes-shelters-2.png)
+
+---
+
+### Blog Page (Mobile)
+
+![Mobile Blog Hero](images/screenshots/mobile-wireframes-blog-hero.png)
+![Mobile Blog Section 2](images/screenshots/mobile-wireframes-blog-2.png)
+
+---
+
+### Contact Page (Mobile)
+
+![Mobile Contact Hero](images/screenshots/mobile-wireframes-contact-hero.png)
+![Mobile Contact Section 2](images/screenshots/mobile-wireframes-contact-2.png)
+
+
+## Technologies Used
 - **HTML, CSS, JavaScript**
 - **Python + Django**
 - **Relational Database** (recommended: **PostgreSQL** in production)
@@ -263,6 +370,16 @@ if (warDayEl) {
   const days = Math.floor((todayUTC - warStartUTC) / (24 * 60 * 60 * 1000));
   warDayEl.textContent = String(days);
 }
+
+### Honest Development Reflection
+Throughout this project, I aimed to improve my development process compared to my previous work. While I did use Git regularly and provided more descriptive commit messages than in my earlier project, I acknowledge that some commits could have been more detailed. At times I was working under pressure or focused heavily on solving a technical issue, and I did not always document changes as clearly as I should have. I understand that clear, specific commit messages are essential for teamwork, maintainability, and professional collaboration, and this is an area I am consciously continuing to improve.
+In some cases, I used external code references (such as documentation examples or tutorial-inspired snippets), but I did not always clearly mark them inside the individual HTML/JS files. I recognise that proper attribution is important both ethically and professionally, especially when working in teams or open-source environments. Going forward, I will ensure that all externally inspired code is clearly documented within the files as well as in the README.
+
+I also understand the importance of creating and preserving wireframes before building a project. I originally had design planning materials for this project, but unfortunately I lost them. I am aware that maintaining design documentation is a key part of professional workflow and supports clearer development decisions. Although the original wireframes are no longer available, I have included screenshots of the final implementation to demonstrate layout, structure, and responsiveness.
+
+Regarding AI usage: I frequently used ChatGPT as a learning support tool — similar to having a personal tutor, adviser, or mentor. I asked questions, checked logic, debugged issues, and clarified concepts. However, I was always mindful that AI should be used strictly as a learning aid, not as a replacement for understanding. I made sure to review, adapt, and understand any suggested solutions before implementing them. My goal in this course is to learn and develop real coding ability — if I did not understand how things worked, I would not be gaining the skills I am here to build.
+
+This project reflects both my current skill level and my growth. I recognise areas for improvement (documentation precision, attribution clarity, wireframe preservation), and I am actively learning from these experiences to strengthen my professional development practices.
 
 
 ### Author
