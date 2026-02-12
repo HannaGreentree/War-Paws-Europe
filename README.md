@@ -174,6 +174,58 @@ I understand that creating wireframes and saving design references is an importa
 
 ---
 
+## User Stories
+
+The following user stories guided the design and development of the application.
+
+---
+
+### 🏠 Home Page – Clear Purpose
+
+![Home Page](images/story-screenshots/home-purpose.png)
+
+**User story:**  
+"As a user, I want to clearly understand the purpose of the website immediately when I open it, so I know what the platform is about."
+
+---
+
+### 📰 Blog – Real Volunteer Updates
+
+![Blog List Page](images/story-screenshots/blog-blog.png)
+
+**User story:**  
+"As a user, I want to see real publications and updates from shelters and volunteers, so I know the information is current and authentic."
+
+---
+
+### 📄 Blog Detail – Full Story
+
+![Blog Detail Page](images/story-screenshots/blog-images.png)
+
+**User story:**  
+"As a user, I want to read the full blog post with images, so I can understand the situation in detail."
+
+---
+
+### 🏥 Shelter List – Choice of Organisations
+
+![Shelter Page](images/story-screenshots/shelters-content.png)
+
+**User story:**  
+"As a user, I want to have a choice of different shelters and organisations, so I can decide who I want to contact or support."
+
+---
+
+### 🔄 CRUD Functionality
+
+![Edit Post](images/story-screenshots/blog-edit.png)
+
+**User story:**  
+"As an admin, I want to edit or delete information, so the website always contains accurate and updated data."
+
+---
+
+
 ## Database & Data Model 
 
 ### Domain dataset
