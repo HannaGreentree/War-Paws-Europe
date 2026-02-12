@@ -86,7 +86,6 @@ I understand that creating wireframes and saving design references is an importa
 ![Documents Hero](images/screenshots/wireframes-documents-hero.png)
 ![Documents Section 2](images/screenshots/wireframes-documents-2.png)
 ![Documents Section 3](images/screenshots/wireframes-documents-3.png)
-![Documents Section 4](images/screenshots/wireframes-documents-4.png)
 
 ---
 
