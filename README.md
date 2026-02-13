@@ -417,8 +417,8 @@ if (warDayEl) {
   const now = new Date();
   const todayUTC = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
   const days = Math.floor((todayUTC - warStartUTC) / (24 * 60 * 60 * 1000));
-  warDayEl.textContent = String(days);'''
-}
+  warDayEl.textContent = String(days);
+}'''
 
 ### Honest Development Reflection
 Throughout this project, I aimed to improve my development process compared to my previous work. While I did use Git regularly and provided more descriptive commit messages than in my earlier project, I acknowledge that some commits could have been more detailed. At times I was working under pressure or focused heavily on solving a technical issue, and I did not always document changes as clearly as I should have. I understand that clear, specific commit messages are essential for teamwork, maintainability, and professional collaboration, and this is an area I am consciously continuing to improve.
